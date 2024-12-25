@@ -1,0 +1,24 @@
+server:
+  port: 8080
+cors:
+  originPatterns: http://localhost:3000,http://localhost:8080,http://localhost:4200
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/taskflow?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: usbw
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+springdoc:
+  pathsToMatch:
+    - /auth/**
+    - /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
