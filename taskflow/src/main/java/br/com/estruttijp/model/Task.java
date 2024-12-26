@@ -1,20 +1,27 @@
 package br.com.estruttijp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "projects")
-public class Project implements Serializable{
+@Table(name = "tasks")
+public class Task implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,10 +29,13 @@ public class Project implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable = false, length = 12)
+	private String status;
+	
 	@Column(nullable = false, length = 180)
 	private String name;
 	
-	@Column(nullable = false, length = 280)
+	@Column(nullable = false, length = 255)
 	private String description;
 
 	@Column(nullable = false, length = 180)
@@ -39,7 +49,27 @@ public class Project implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date deadline;
 	
-	public Project() {}
+	@ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "task_users", 
+			joinColumns = @JoinColumn (name = "id_task"),
+			inverseJoinColumns = @JoinColumn (name = "id_user")
+	)
+	private List<User> members;
+	
+	public List<String> getMembersNames() {
+		List<String> memberNames = new ArrayList<>();
+		for (User member : members) {
+			memberNames.add(member.getUsername());
+		}
+		return memberNames;
+	}
+	
+	public Task() {}
 
 	public Long getId() {
 		return id;
@@ -47,6 +77,14 @@ public class Project implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getName() {
@@ -89,6 +127,22 @@ public class Project implements Serializable{
 		this.deadline = deadline;
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public List<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<User> members) {
+		this.members = members;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -98,7 +152,10 @@ public class Project implements Serializable{
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((launchDate == null) ? 0 : launchDate.hashCode());
+		result = prime * result + ((members == null) ? 0 : members.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -110,7 +167,7 @@ public class Project implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Project other = (Project) obj;
+		Task other = (Task) obj;
 		if (creator == null) {
 			if (other.creator != null)
 				return false;
@@ -136,11 +193,26 @@ public class Project implements Serializable{
 				return false;
 		} else if (!launchDate.equals(other.launchDate))
 			return false;
+		if (members == null) {
+			if (other.members != null)
+				return false;
+		} else if (!members.equals(other.members))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (project == null) {
+			if (other.project != null)
+				return false;
+		} else if (!project.equals(other.project))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		return true;
-	}
+	}	
 }
