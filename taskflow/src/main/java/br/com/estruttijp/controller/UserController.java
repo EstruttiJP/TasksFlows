@@ -24,64 +24,61 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/api/users/v1")
 public class UserController {
-	
-	@Autowired
-	AuthServices userServices;
-	
-	@GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	@Operation(summary = "Finds all Users", description = "Finds all Users",
-		tags = {"Users"},
-		responses = {
-				@ApiResponse(description = "Success", responseCode = "200",
-						content = {
-				@Content(
-					mediaType = "application/json",
-					array = @ArraySchema(schema = @Schema(implementation = UserVO.class))
-				)
-			}),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public List<UserVO> findAll() {
-		return userServices.findAll();
-	}
-	
-	@GetMapping(value = "/{id}", 
-			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,MediaType.APPLICATION_YML })
-	@Operation(summary = "Finds a User", description = "Finds a User",
-		tags = {"Users"},
-		responses = {
-			@ApiResponse(description = "Success", responseCode = "200",
-					content = @Content(schema = @Schema(implementation = UserVO.class))
-			),
-			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public UserVO findById(@PathVariable(value = "id") Long id) {
-		return userServices.findById(id);
-	}
-	
-	@DeleteMapping(value = "/{id}")
-	@Operation(summary = "Deletes a User",
-		description = "Deletes a User by passing in a JSON, XML or YML representation of the user!",
-		tags = {"Users"},
-		responses = {
-			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-		userServices.delete(id);
-		return ResponseEntity.noContent().build();
-	}
+
+    @Autowired
+    AuthServices userServices;
+
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Finds all Users", description = "Finds all Users",
+            tags = {"Users"},
+            responses = {
+                @ApiResponse(description = "Success", responseCode = "200",
+                        content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = UserVO.class))
+                            )
+                        }),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public List<UserVO> findAll() {
+        return userServices.findAll();
+    }
+
+    @GetMapping(value = "/{id}",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Finds a User", description = "Finds a User",
+            tags = {"Users"},
+            responses = {
+                @ApiResponse(description = "Success", responseCode = "200",
+                        content = @Content(schema = @Schema(implementation = UserVO.class))
+                ),
+                @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public UserVO findById(@PathVariable(value = "id") Long id) {
+        return userServices.findById(id);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @Operation(summary = "Deletes a User",
+            description = "Deletes a User by passing in a JSON, XML or YML representation of the user!",
+            tags = {"Users"},
+            responses = {
+                @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+        userServices.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

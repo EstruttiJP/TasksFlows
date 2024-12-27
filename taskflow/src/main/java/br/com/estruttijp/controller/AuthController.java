@@ -19,38 +19,44 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/auth")
 public class AuthController {
 
-	@Autowired
-	AuthServices authServices;
-	
-	@SuppressWarnings("rawtypes")
-	@Operation(summary = "Authenticates a user and returns a token")
-	@PostMapping(value = "/signin")
-	public ResponseEntity signin(@RequestBody AccountCredentialsVO data) {
-		if (checkIfParamsIsNotNull(data))
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-		var token = authServices.signin(data);
-		if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-		return token;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	@Operation(summary = "Create a user")
-	@PostMapping(value = "/register")
-	public ResponseEntity register(@RequestBody UserVO data) {
-		if (checkIfParamsIsNotNull(data))
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-		var token = authServices.register(data);
-		if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-		return token;
-	}
+    @Autowired
+    AuthServices authServices;
 
-	private boolean checkIfParamsIsNotNull(UserVO data) {
-		return data == null || data.getUsername() == null || data.getUsername().isBlank() || 
-				data.getPassword() == null || data.getPassword().isBlank() || data.getFullName() == null || data.getFullName().isBlank();
-	}
+    @SuppressWarnings("rawtypes")
+    @Operation(summary = "Authenticates a user and returns a token")
+    @PostMapping(value = "/signin")
+    public ResponseEntity signin(@RequestBody AccountCredentialsVO data) {
+        if (checkIfParamsIsNotNull(data)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        }
+        var token = authServices.signin(data);
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        }
+        return token;
+    }
 
-	private boolean checkIfParamsIsNotNull(AccountCredentialsVO data) {
-		return data == null || data.getUsername() == null || data.getUsername().isBlank()
-				 || data.getPassword() == null || data.getPassword().isBlank();
-	}
+    @SuppressWarnings("rawtypes")
+    @Operation(summary = "Create a user")
+    @PostMapping(value = "/register")
+    public ResponseEntity register(@RequestBody UserVO data) {
+        if (checkIfParamsIsNotNull(data)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        }
+        var token = authServices.register(data);
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        }
+        return token;
+    }
+
+    private boolean checkIfParamsIsNotNull(UserVO data) {
+        return data == null || data.getUsername() == null || data.getUsername().isBlank()
+                || data.getPassword() == null || data.getPassword().isBlank() || data.getFullName() == null || data.getFullName().isBlank();
+    }
+
+    private boolean checkIfParamsIsNotNull(AccountCredentialsVO data) {
+        return data == null || data.getUsername() == null || data.getUsername().isBlank()
+                || data.getPassword() == null || data.getPassword().isBlank();
+    }
 }

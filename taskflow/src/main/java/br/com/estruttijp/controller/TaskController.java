@@ -30,122 +30,116 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/tasks/v1")
 public class TaskController {
 
-	@Autowired
-	private TaskServices taskServices;
-	
-	@GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	@Operation(summary = "Finds all Tasks", description = "Finds all Tasks",
-		tags = {"Tasks"},
-		responses = {
-				@ApiResponse(description = "Success", responseCode = "200",
-						content = {
-				@Content(
-					mediaType = "application/json",
-					array = @ArraySchema(schema = @Schema(implementation = TaskVO.class))
-				)
-			}),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public List<TaskVO> findAll() {
-		return taskServices.findAll();
-	}
+    @Autowired
+    private TaskServices taskServices;
 
-	@GetMapping(value = "/{id}", 
-			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,MediaType.APPLICATION_YML })
-	@Operation(summary = "Finds a Task", description = "Finds a Task",
-		tags = {"Tasks"},
-		responses = {
-			@ApiResponse(description = "Success", responseCode = "200",
-					content = @Content(schema = @Schema(implementation = TaskVO.class))
-			),
-			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public TaskVO findById(@PathVariable(value = "id") Long id) {
-		return taskServices.findById(id);
-	}
-
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-					MediaType.APPLICATION_YML })
-	@Operation(summary = "Adds a new Task",
-		description = "Adds a new Task by passing in a JSON, XML or YML representation of the task!",
-		tags = {"Tasks"},
-		responses = {
-			@ApiResponse(description = "Success", responseCode = "200",
-				content = @Content(schema = @Schema(implementation = TaskVO.class))
-				),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Finds all Tasks", description = "Finds all Tasks",
+            tags = {"Tasks"},
+            responses = {
+                @ApiResponse(description = "Success", responseCode = "200",
+                        content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = TaskVO.class))
+                            )
+                        }),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
     )
-	public TaskVO create(@RequestBody TaskVO task) {
-		return taskServices.create(task);
-	}
+    public List<TaskVO> findAll() {
+        return taskServices.findAll();
+    }
 
-	@PutMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-					MediaType.APPLICATION_YML })
-	@Operation(summary = "Updates a Task",
-		description = "Updates a Task by passing in a JSON, XML or YML representation of the task!",
-		tags = {"Tasks"},
-		responses = {
-			@ApiResponse(description = "Updated", responseCode = "200",
-				content = @Content(schema = @Schema(implementation = TaskVO.class))
-				),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public TaskVO update(@RequestBody TaskVO task) {
-		return taskServices.update(task);
-	}
-	
-	@PatchMapping(value = "/{id}",
-		produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML  })
-	@Operation(summary = "Update status a specific Task by your ID", description = "Update status a specific Task by your ID",
-		tags = {"Tasks"},
-		responses = {
-			@ApiResponse(description = "Success", responseCode = "200",
-				content = @Content(schema = @Schema(implementation = TaskVO.class))
-			),
-			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public TaskVO updateStatus(@PathVariable(value = "id") Long id, @RequestBody StatusVO status) {
-		return taskServices.updateStatus(id, status.getStatus());
-	}
+    @GetMapping(value = "/{id}",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Finds a Task", description = "Finds a Task",
+            tags = {"Tasks"},
+            responses = {
+                @ApiResponse(description = "Success", responseCode = "200",
+                        content = @Content(schema = @Schema(implementation = TaskVO.class))
+                ),
+                @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public TaskVO findById(@PathVariable(value = "id") Long id) {
+        return taskServices.findById(id);
+    }
 
-	@DeleteMapping(value = "/{id}")
-	@Operation(summary = "Deletes a Task",
-		description = "Deletes a Task by passing in a JSON, XML or YML representation of the task!",
-		tags = {"Tasks"},
-		responses = {
-			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
-	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-		taskServices.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+        MediaType.APPLICATION_YML}, produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+        MediaType.APPLICATION_YML})
+    @Operation(summary = "Adds a new Task",
+            description = "Adds a new Task by passing in a JSON, XML or YML representation of the task!",
+            tags = {"Tasks"},
+            responses = {
+                @ApiResponse(description = "Success", responseCode = "200",
+                        content = @Content(schema = @Schema(implementation = TaskVO.class))
+                ),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public TaskVO create(@RequestBody TaskVO task) {
+        return taskServices.create(task);
+    }
+
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+        MediaType.APPLICATION_YML}, produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+        MediaType.APPLICATION_YML})
+    @Operation(summary = "Updates a Task",
+            description = "Updates a Task by passing in a JSON, XML or YML representation of the task!",
+            tags = {"Tasks"},
+            responses = {
+                @ApiResponse(description = "Updated", responseCode = "200",
+                        content = @Content(schema = @Schema(implementation = TaskVO.class))
+                ),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public TaskVO update(@RequestBody TaskVO task) {
+        return taskServices.update(task);
+    }
+
+    @PatchMapping(value = "/{id}",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Update status a specific Task by your ID", description = "Update status a specific Task by your ID",
+            tags = {"Tasks"},
+            responses = {
+                @ApiResponse(description = "Success", responseCode = "200",
+                        content = @Content(schema = @Schema(implementation = TaskVO.class))
+                ),
+                @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public TaskVO updateStatus(@PathVariable(value = "id") Long id, @RequestBody StatusVO status) {
+        return taskServices.updateStatus(id, status.getStatus());
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @Operation(summary = "Deletes a Task",
+            description = "Deletes a Task by passing in a JSON, XML or YML representation of the task!",
+            tags = {"Tasks"},
+            responses = {
+                @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),}
+    )
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+        taskServices.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
