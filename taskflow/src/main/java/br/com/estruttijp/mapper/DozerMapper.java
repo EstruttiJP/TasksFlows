@@ -31,10 +31,9 @@ public class DozerMapper {
     public static TaskVO mapTaskToTaskVO(Task task) {
         TaskVO taskVO = new TaskVO();
         taskVO.setKey(task.getId());
-        taskVO.setStatus(task.getStatus());
+        taskVO.setStatus(task.getStatus().getStatus());
         taskVO.setCreator(task.getCreator());
         taskVO.setDescription(task.getDescription());
-        taskVO.setLaunchDate(task.getLaunchDate());
         taskVO.setDeadline(task.getDeadline());
         taskVO.setName(task.getName());
         if (task.getProject() != null) {

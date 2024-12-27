@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import br.com.estruttijp.data.vo.v1.TaskStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +35,8 @@ public class Task implements Serializable{
 	private Long id;
 	
 	@Column(nullable = false, length = 12)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private TaskStatus status;
 	
 	@Column(nullable = false, length = 180)
 	private String name;
@@ -41,8 +47,9 @@ public class Task implements Serializable{
 	@Column(nullable = false, length = 180)
 	private String creator;
 
-	@Column(name = "launch_date", nullable = false)
-	@Temporal(TemporalType.DATE)
+	@Column(name = "launch_date", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
 	private Date launchDate;
 	
 	@Column(name = "deadline", nullable = false)
@@ -79,11 +86,11 @@ public class Task implements Serializable{
 		this.id = id;
 	}
 
-	public String getStatus() {
+	public TaskStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TaskStatus status) {
 		this.status = status;
 	}
 

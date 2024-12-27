@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `status` VARCHAR(50) NOT NULL,
   `name` VARCHAR(180) NOT NULL,
   `description` VARCHAR(255) NOT NULL,
-  `launch_date` DATETIME(6) NOT NULL,
+  `launch_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `deadline` DATETIME(6) NOT NULL,
   `project_id` BIGINT(20) DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -1,9 +1,14 @@
 package br.com.estruttijp.services;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
@@ -23,18 +28,52 @@ public class ProjectService {
 
     @Autowired
     ProjectRepository repository;
+    
+    @Autowired
+	PagedResourcesAssembler<ProjectVO> assembler;
 
-    public List<ProjectVO> findAll() {
+    public PagedModel<EntityModel<ProjectVO>> findAll(Pageable pageable) {
 
         logger.info("Finding all projects!");
 
-        var projects = DozerMapper.parseListObjects(repository.findAll(), ProjectVO.class);
-        projects
-                .stream()
-                .forEach(p -> p.add(linkTo(methodOn(ProjectController.class).findById(p.getKey())).withSelfRel()));
-        return projects;
+        var projectPage = repository.findAll(pageable);
+
+		var projectVosPage = projectPage.map(p -> DozerMapper.parseObject(p, ProjectVO.class));
+		projectVosPage.map(
+			p -> p.add(
+				linkTo(methodOn(ProjectController.class)
+					.findById(p.getKey())).withSelfRel()));
+		
+		Link link = linkTo(
+			methodOn(ProjectController.class)
+				.findAll(pageable.getPageNumber(),
+						pageable.getPageSize(),
+						"asc")).withSelfRel();
+		
+		return assembler.toModel(projectVosPage, link);
     }
 
+    public PagedModel<EntityModel<ProjectVO>> findProjectByName(String name, Pageable pageable) {
+		
+		logger.info("Finding all projects!");
+		
+		var projectPage = repository.findProjectsByName(name, pageable);
+		
+		var projectVosPage = projectPage.map(p -> DozerMapper.parseObject(p, ProjectVO.class));
+		projectVosPage.map(
+			p -> p.add(
+				linkTo(methodOn(ProjectController.class)
+					.findById(p.getKey())).withSelfRel()));
+		
+		Link link = linkTo(
+			methodOn(ProjectController.class)
+				.findAll(pageable.getPageNumber(),
+						pageable.getPageSize(),
+						"asc")).withSelfRel();
+		
+		return assembler.toModel(projectVosPage, link);
+	}
+    
     public ProjectVO findById(Long id) {
 
         logger.info("Finding one project!");
@@ -67,7 +106,6 @@ public class ProjectService {
         entity.setName(projectVO.getName());
         entity.setDescription(projectVO.getDescription());
         entity.setCreator(projectVO.getCreator());
-        entity.setLaunchDate(projectVO.getLaunchDate());
         entity.setDeadline(projectVO.getDeadline());
         var vo = DozerMapper.parseObject(repository.save(entity), ProjectVO.class);
         vo.add(linkTo(methodOn(ProjectController.class).findById(vo.getKey())).withSelfRel());

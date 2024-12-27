@@ -5,9 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.2</version>
-		<relativePath/>
-		<!-- lookup parent from repository -->
+		<version>3.3.7</version>
 	</parent>
 	<groupId>br.com.estruttijp</groupId>
 	<artifactId>taskflow</artifactId>
@@ -111,10 +109,8 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-			<version>3.1.5</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

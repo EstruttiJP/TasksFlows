@@ -3,6 +3,8 @@ package br.com.estruttijp.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,8 +33,9 @@ public class Project implements Serializable{
 	@Column(nullable = false, length = 180)
 	private String creator;
 
-	@Column(name = "launch_date", nullable = false)
-	@Temporal(TemporalType.DATE)
+	@Column(name = "launch_date", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
 	private Date launchDate;
 	
 	@Column(name = "deadline", nullable = false)

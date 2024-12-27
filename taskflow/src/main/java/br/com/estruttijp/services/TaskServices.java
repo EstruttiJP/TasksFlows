@@ -5,6 +5,11 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -14,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estruttijp.controller.TaskController;
+import br.com.estruttijp.data.vo.v1.TaskStatus;
 import br.com.estruttijp.data.vo.v1.TaskVO;
 import br.com.estruttijp.exceptions.RequiredObjectIsNullException;
 import br.com.estruttijp.exceptions.ResourceNotFoundException;
@@ -43,15 +49,48 @@ public class TaskServices {
     
     @Autowired 
     private JavaMailSender emailSender; 
+    
+    @Autowired
+	PagedResourcesAssembler<TaskVO> assembler;
 
-    public List<TaskVO> findAll() {
-
-        logger.info("Finding all tasks!");
-
-        List<Task> taskEntities = repository.findAll();
-        List<TaskVO> taskVOs = DozerMapper.mapTaskListToTaskVOList(taskEntities);
-        taskVOs.forEach(p -> p.add(linkTo(methodOn(TaskController.class).findById(p.getKey())).withSelfRel()));
-        return taskVOs;
+    public PagedModel<EntityModel<TaskVO>> findAll(Pageable pageable) {
+    	logger.info("Finding all tasks!");
+    	
+    	var taskPage = repository.findAll(pageable);
+		
+    	var taskVosPage = taskPage.map(DozerMapper::mapTaskToTaskVO);
+		taskVosPage.map(
+			p -> p.add(
+				linkTo(methodOn(TaskController.class)
+					.findById(p.getKey())).withSelfRel()));
+		
+		Link link = linkTo(
+			methodOn(TaskController.class)
+				.findAll(pageable.getPageNumber(),
+						pageable.getPageSize(),
+						"asc")).withSelfRel();
+		
+		return assembler.toModel(taskVosPage, link);	
+    }
+    
+    public PagedModel<EntityModel<TaskVO>> findAllOrderedByStatus(Pageable pageable) {
+    	logger.info("Finding all tasks ordered!");
+    	
+    	var taskPage = repository.findAllOrderedByStatus(pageable);
+		
+    	var taskVosPage = taskPage.map(DozerMapper::mapTaskToTaskVO);
+		taskVosPage.map(
+			p -> p.add(
+				linkTo(methodOn(TaskController.class)
+					.findById(p.getKey())).withSelfRel()));
+		
+		Link link = linkTo(
+			methodOn(TaskController.class)
+				.findAll(pageable.getPageNumber(),
+						pageable.getPageSize(),
+						"asc")).withSelfRel();
+		
+		return assembler.toModel(taskVosPage, link);	
     }
 
     public TaskVO findById(Long id) {
@@ -79,10 +118,9 @@ public class TaskServices {
                 .orElseThrow(() -> new IllegalStateException("Nenhum projeto encontrado para o ID fornecido."));
         var task = new Task();
         task.setName(taskVO.getName());
-        task.setStatus("pendente");
+        task.setStatus(TaskStatus.PENDING);
         task.setDescription(taskVO.getDescription());
         task.setCreator(taskVO.getCreator());
-        task.setLaunchDate(taskVO.getLaunchDate());
         task.setDeadline(taskVO.getDeadline());
         task.setProject(project);
         task.setMembers(members);
@@ -110,26 +148,12 @@ public class TaskServices {
         		e.printStackTrace(); 
         	} 
         }
-
-        // Converte manualmente para TaskVO
-        var vo = new TaskVO();
-        vo.setKey(savedEntity.getId());
-        vo.setStatus(savedEntity.getStatus());
-        vo.setName(savedEntity.getName());
-        vo.setDescription(savedEntity.getDescription());
-        vo.setCreator(savedEntity.getCreator());
-        vo.setLaunchDate(savedEntity.getLaunchDate());
-        vo.setDeadline(savedEntity.getDeadline());
-        vo.setProjectId(savedEntity.getProject().getId());
-        vo.setMemberIds(
-                savedEntity.getMembers().stream()
-                        .map(User::getId)
-                        .collect(Collectors.toList())
-        );
+        
+        TaskVO vo = DozerMapper.mapTaskToTaskVO(savedEntity);
         vo.add(linkTo(methodOn(TaskController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }
-
+    
     public TaskVO update(TaskVO taskVO) {
         if (taskVO == null) {
             throw new RequiredObjectIsNullException();
@@ -144,10 +168,9 @@ public class TaskServices {
         var task = repository.findById(taskVO.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         task.setName(taskVO.getName());
-        task.setStatus(taskVO.getStatus());
+        task.setStatus(TaskStatus.fromString(taskVO.getStatus()));
         task.setDescription(taskVO.getDescription());
         task.setCreator(taskVO.getCreator());
-        task.setLaunchDate(taskVO.getLaunchDate());
         task.setDeadline(taskVO.getDeadline());
         task.setProject(project);
         task.setMembers(members);
@@ -176,38 +199,20 @@ public class TaskServices {
         	} 
         }
         
-        // Converte manualmente para TaskVO
-        var vo = new TaskVO();
-        vo.setKey(savedEntity.getId());
-        vo.setStatus(savedEntity.getStatus());
-        vo.setName(savedEntity.getName());
-        vo.setDescription(savedEntity.getDescription());
-        vo.setCreator(savedEntity.getCreator());
-        vo.setLaunchDate(savedEntity.getLaunchDate());
-        vo.setDeadline(savedEntity.getDeadline());
-        vo.setProjectId(savedEntity.getProject().getId());
-        vo.setMemberIds(
-                savedEntity.getMembers().stream()
-                        .map(User::getId)
-                        .collect(Collectors.toList())
-        );
+        TaskVO vo = DozerMapper.mapTaskToTaskVO(savedEntity);
         vo.add(linkTo(methodOn(TaskController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }
 
     @Transactional
-    public TaskVO updateStatus(Long id, String status) {
+    public TaskVO updateStatus(Long id, TaskStatus status) {
 
         logger.info("Updating the status of a task!");
 
-        // Atualizar o status da task
-        repository.updateStatus(id, status);
-
-        // Buscar a task atualizada
-        var entity = repository.findById(id)
+        var task = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-
-        // Mapear a task para TaskVO
+        task.setStatus(status);
+        var entity = repository.save(task); 
         var vo = DozerMapper.mapTaskToTaskVO(entity);
         vo.add(linkTo(methodOn(TaskController.class).findById(id)).withSelfRel());
 
