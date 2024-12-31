@@ -70,7 +70,7 @@ public class AuthServices {
 
             var tokenResponse = new TokenVO();
             if (user != null) {
-                tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
+                tokenResponse = tokenProvider.createAccessToken(username, user.getFullName(), user.getId(), user.getRoles());
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");
             }
@@ -80,8 +80,7 @@ public class AuthServices {
         }
     }
 
-    @SuppressWarnings("rawtypes")
-    public ResponseEntity register(UserVO data) {
+    public ResponseEntity<UserVO> register(UserVO data) {
         var emailUsed = repository.findByUsername(data.getUsername());
 
         if (emailUsed != null) {
@@ -126,13 +125,15 @@ public class AuthServices {
         } catch (MessagingException e) { 
         	e.printStackTrace();
         }
-        return ResponseEntity.ok("Usuário registrado com sucesso!");
+        var vo = DozerMapper.mapUserToUserVO(user);
+        vo.add(linkTo(methodOn(UserController.class).findById(user.getId())).withSelfRel());
+        return ResponseEntity.ok(vo);
     }
 
     public List<UserVO> findAll() {
         logger.info("Finding all Users!");
 
-        var users = DozerMapper.parseListObjects(repository.findAll(), UserVO.class);
+        var users = DozerMapper.mapUserListToUserVOList(repository.findAll());
         users
                 .stream()
                 .forEach(p -> p.add(linkTo(methodOn(UserController.class).findById(p.getKey())).withSelfRel()));
@@ -143,7 +144,7 @@ public class AuthServices {
         logger.info("Finding one User!");
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-        var vo = DozerMapper.parseObject(entity, UserVO.class);
+        var vo = DozerMapper.mapUserToUserVO(entity);
         vo.add(linkTo(methodOn(UserController.class).findById(id)).withSelfRel());
         return vo;
     }

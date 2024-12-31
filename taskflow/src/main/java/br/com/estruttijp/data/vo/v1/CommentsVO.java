@@ -20,7 +20,7 @@ public class CommentsVO extends RepresentationModel<CommentsVO> implements Seria
     private Long taskId;
     private Long userId;
     private String comment;
-    private Date createdAt;
+    private Date createdAt;	
 	public Long getKey() {
 		return key;
 	}

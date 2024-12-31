@@ -43,11 +43,11 @@ public class AuthController {
         if (checkIfParamsIsNotNull(data)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
         }
-        var token = authServices.register(data);
-        if (token == null) {
+        var userVO = authServices.register(data);
+        if (userVO == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
         }
-        return token;
+        return userVO;
     }
 
     private boolean checkIfParamsIsNotNull(UserVO data) {

@@ -7,7 +7,9 @@ public class TokenVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
 	private String username;
+	private String fullName;
 	private Boolean authenticated;
 	private Date created;
 	private Date expiration;
@@ -18,17 +20,37 @@ public class TokenVO implements Serializable{
 	
 	public TokenVO(
 			String username,
+			String fullName,
+			Long id,
 			Boolean authenticated,
 			Date created,
 			Date expiration,
 			String accessToken,
 			String refreshToken) {
 		this.username = username;
+		this.fullName = fullName;
+		this.id = id;
 		this.authenticated = authenticated;
 		this.created = created;
 		this.expiration = expiration;
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getUsername() {
@@ -87,6 +109,8 @@ public class TokenVO implements Serializable{
 		result = prime * result + ((authenticated == null) ? 0 : authenticated.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
+		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((refreshToken == null) ? 0 : refreshToken.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -120,6 +144,16 @@ public class TokenVO implements Serializable{
 			if (other.expiration != null)
 				return false;
 		} else if (!expiration.equals(other.expiration))
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (refreshToken == null) {
 			if (other.refreshToken != null)

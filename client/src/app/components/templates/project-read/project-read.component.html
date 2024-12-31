@@ -1,0 +1,15 @@
+<mat-card class="card">
+    <button mat-flat-button class="exit" (click)="exit()">
+        <mat-icon>reply</mat-icon>
+        voltar
+    </button>
+        <mat-card-header class="mat-card-header">
+            <mat-card-title class="mat-card-title">{{project?.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="tasks">
+            <p><mat-icon>description</mat-icon>Descrição: {{project?.description}}</p>
+            <p><mat-icon>person</mat-icon>Criador: {{project?.creator}}</p>
+            <p><mat-icon>calendar_today</mat-icon>Criado em: {{project?.launchDate | date: 'dd/MM/yyyy'}}</p>
+            <p><mat-icon>schedule</mat-icon>Prazo final: {{project?.deadline | date: 'dd/MM/yyyy'}}</p>
+        </mat-card-content>
+</mat-card>

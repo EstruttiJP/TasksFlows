@@ -1,0 +1,41 @@
+<div class="findProjectsByName">
+    <mat-card class="card-project-name">
+    <mat-card-header>
+        <mat-form-field appearance="outline">
+            <mat-label>Buscar projeto</mat-label>
+            <input matInput placeholder="Projeto Teste" [(ngModel)]="projectName" name="projectName"
+                class="projectName">
+        </mat-form-field>
+        <button mat-raised-button class="btn-findbyname" (click)="findProjectsByName()">Buscar</button>
+    </mat-card-header>
+    <button mat-raised-button style="width: 90%; margin-bottom: 5px;" (click)="createProject()">
+        <mat-icon>add_circle_outline</mat-icon>
+        Criar um projeto
+    </button>
+    </mat-card>
+</div>
+
+<div class="project-list">
+    <ng-container *ngFor="let project of projects">
+        <mat-card class="project-card">
+            <div class="card-icons">
+                <button mat-icon-button (click)="openDialogUpdateProject(project.id)">
+                    <mat-icon class="edit">edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openDialogDeleteProject(project.name, project.id)">
+                    <mat-icon class="delete">delete</mat-icon>
+                </button>
+            </div>
+            <mat-card-content>
+                <h2>{{ project.name }}</h2>
+                <p>Criador: {{ project.creator }}</p>
+                <p>Criado em: {{ project.launchDate | date: 'dd/MM/yyyy' }}</p>
+                <p>Prazo final: {{ project.deadline | date: 'dd/MM/yyyy' }}</p>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>
+<mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="totalElements"
+    [pageSize]="pageSize" [disabled]="disabled" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+    aria-label="Select page">
+</mat-paginator>

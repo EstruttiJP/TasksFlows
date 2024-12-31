@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Criar Projeto
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+        <button mat-flat-button class="exit" (click)="exit()">
+            <mat-icon>reply</mat-icon>
+            voltar
+        </button>
+    </mat-card-actions>
+    <mat-card-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Projeto Teste" [formControl]="name" (blur)="updateErrorMessage()" name="Name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput placeholder="Descrição feita para um projeto teste" [formControl]="description" (blur)="updateErrorMessage()"
+                name="description"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Prazo final:</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="deadline" (blur)="updateErrorMessage()">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </mat-card-content>
+    <button mat-fab (click)="register()" style="background-color: #3e0079b6; color: #fff;">Cadastrar</button>
+</mat-card>

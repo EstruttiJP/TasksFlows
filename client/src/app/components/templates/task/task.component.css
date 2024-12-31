@@ -1,0 +1,111 @@
+.findtasks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.findtasks button{
+    background-color: #440083e8;
+    color: #fff;
+    border-radius: 12px;
+}
+
+/* Estilo para a lista de tarefas */
+.task-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 0 10%;
+}
+
+.task-card {
+    width: 30%;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.task-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para os ícones de edição e exclusão */
+.card-icons {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.card-icons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-icons button:hover {
+    background-color: rgba(98, 0, 234, 0.1);
+    color: #6200ea;
+}
+
+.edit {
+    color: #d9cd26;
+}
+
+.delete {
+    color: #e53935;
+}
+
+.task-card mat-card-content {
+    text-align: left;
+}
+
+.task-card h2 {
+    font-weight: 500;
+    margin-top: 0;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #4e4e4e;
+}
+
+.task-card p {
+    color: #757575;
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+/* Estilos responsivos para ajustar o layout em diferentes tamanhos de tela */
+@media (max-width: 768px) {
+    .task-card {
+        width: 45%;
+    }
+
+    .task-card mat-card-content {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .task-card {
+        width: 100%;
+    }
+
+    .task-card mat-card-content {
+        text-align: center;
+    }
+}
+
+/* Estilo para o paginator */
+.demo-paginator {
+    margin-top: 20px;
+    background-color: transparent;
+}

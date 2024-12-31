@@ -1,0 +1,208 @@
+.card {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.exit,
+.enviar {
+    background-color: #3e0079b6;
+    color: #fff;
+    margin: 5px;
+    width: 30%;
+    border-radius: 12px;
+    margin: 0 0 10px 0;
+}
+
+.exit mat-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.exit:hover {
+    background-color: #320064;
+}
+
+.mat-card-header {
+    background-color: #3e0079b6;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+    padding: 15px;
+}
+
+.mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tasks {
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.tasks p {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.mat-icon {
+    vertical-align: middle;
+    margin-right: 10px;
+    color: #3e0079b6;
+}
+
+.comentario {
+    margin-right: 5px;
+    color: #3e0079b6;
+}
+
+h3[mat-line] {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+p[mat-line] {
+    display: inline-block;
+    font-size: 16px;
+    color: #666;
+    margin-left: 10px;
+}
+
+div {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+mat-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: -10px;
+}
+
+mat-form-field {
+    flex: 1;
+}
+
+.enviar {
+    margin: 10px 10px 30px 20px;
+}
+
+.pendent {
+    cursor: pointer;
+    transition: .5s;
+    color: #e53935;
+    text-decoration: underline;
+}
+
+.in_progress {
+    text-decoration: underline;
+    cursor: pointer;
+    transition: .5s;
+    color: #d98b26;
+}
+
+.concluido{
+    cursor: pointer;
+    transition: .5s;
+    color: #26d944;
+    text-decoration: underline;
+}
+
+.comentarios {
+    margin: 10px;
+    max-height: 25vh;
+    overflow: auto;
+}
+
+a {
+    margin-left: 8px;
+    color: #430086;
+}
+
+/* Estilo para navegadores WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+    /* Largura da barra de rolagem vertical */
+    height: 12px;
+    /* Altura da barra de rolagem horizontal */
+}
+
+/* Estilo do trilho da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: #ead8ff;
+    border-radius: 10px;
+}
+
+/* Estilo do polegar da barra de rolagem */
+::-webkit-scrollbar-thumb {
+    background: #3e0079b6;
+    border-radius: 10px;
+}
+
+/* Estilo do polegar da barra de rolagem durante hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #3e0079b6;
+}
+
+/* Estilo para navegadores Firefox */
+html {
+    scrollbar-width: thin;
+    /* Largura fina da barra de rolagem */
+    scrollbar-color: #3e0079b6 #ead8ff;
+    /* Cor do polegar e trilho da barra de rolagem */
+}
+
+.pendent:hover mat-icon {
+    animation: bounce 1s ease-in-out;
+}
+
+.in_progress:hover mat-icon {
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

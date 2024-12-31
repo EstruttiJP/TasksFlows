@@ -1,0 +1,32 @@
+mat-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    padding: 20px;
+}
+
+mat-card-actions{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+.exit {
+    width: 20%;
+    border-radius: 12px;
+    background-color: #3e0079b6;
+}
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    font-weight: 700;
+    font-size: 1rem;
+}

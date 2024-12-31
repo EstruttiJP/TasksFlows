@@ -1,0 +1,75 @@
+.card {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.exit {
+    background-color: #3f0079dc;
+    color: #fff;
+    margin: 5px;
+    width: 30%;
+    border-radius: 12px;
+}
+
+.exit mat-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.exit:hover {
+    background-color: #320064;
+}
+
+
+.mat-card-header {
+    background-color: #3e0079b6;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+    padding: 15px;
+}
+
+.mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tasks {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.tasks p {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.mat-card-content {
+    margin-top: 10px;
+}
+
+.mat-icon {
+    vertical-align: middle;
+    margin-right: 10px;
+    color: #3e0079b6;
+}
+
+button.exit {
+    background-color: #3e0079b6;
+    color: #fff;
+    margin: 5px;
+}
+
+button.exit:hover {
+    background-color: #320064;
+}

@@ -1,0 +1,38 @@
+<app-loading></app-loading>
+<div class="container">
+
+    <mat-card class="logo">
+        <img src="assets/TasksLogo.png" alt="">
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="teste@gmail.com" [formControl]="email" (blur)="updateErrorMessage()"
+                    required name="Email">
+                @if (email.invalid) {
+                <mat-error>{{errorMessage}}</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password"
+                    (blur)="updateErrorMessage()" required name="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide" class="icon" color="primary">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                @if (password.invalid) {
+                <mat-error>{{errorMessage}}</mat-error>
+                }
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-fab (click)="signin()" class="enter">Entrar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

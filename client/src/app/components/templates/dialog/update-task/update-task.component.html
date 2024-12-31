@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Atualizar Tarefa</h2>
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Projeto Teste" [(ngModel)]="task.name" name="Name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput placeholder="Descrição feita para um projeto teste" [(ngModel)]="task.description"
+            name="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Prazo final:</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="task.deadline">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Selecionar Projeto</mat-label>
+        <mat-select [(value)]="task.projectId" (selectionChange)="onProjectChange($event)">
+            <mat-option *ngFor="let project of projects" [value]="project.id">
+                {{ project.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+        <mat-label>Selecione os Membros</mat-label>
+        <mat-select [(value)]="task.memberIds" multiple (selectionChange)="onMemberSelectionChange($event)">
+            <mat-option *ngFor="let member of members" [value]="member.id">
+                {{ member.fullName }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Exibição dos membros selecionados como chips -->
+    <mat-chip-set>
+        <mat-chip *ngFor="let memberId of task.memberIds" [removable]="true" (removed)="removeMember(memberId)">
+            {{ getMemberName(memberId) }}
+            <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+    </mat-chip-set>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Não</button>
+    <button mat-raised-button class="edit" (click)="updateTask()">
+        <mat-icon>edit</mat-icon>Alterar</button>
+</mat-dialog-actions>

@@ -1,0 +1,99 @@
+.project-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 0 20%;
+}
+
+.findProjectsByName, .card-project-name, mat-card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-project-name { 
+    padding: 10px;
+}
+
+.btn-findbyname {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.findProjectsByName button{
+    background-color: #440083e8;
+    color: #fff;
+    border-radius: 12px;
+}
+
+.project-card {
+    width: 12vw;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.card-icons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit {
+    color: #d9cd26;
+}
+
+.delete {
+    color: #ff5757;
+}
+
+mat-icon {
+    transition: .3s;
+}
+
+mat-icon:hover {
+    transform: scale(1.2);
+}
+
+.project-card mat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card mat-card-content {
+    padding: 10px;
+    text-align: center;
+}
+
+.project-card h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #3f51b5;
+}
+
+.project-card p {
+    color: #757575;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .project-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-card {
+        width: 100%;
+    }
+}
+
+.demo-paginator {
+    margin-top: 20px;
+    background-color: #ffffff00;
+}

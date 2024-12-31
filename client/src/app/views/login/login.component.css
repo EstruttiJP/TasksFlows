@@ -1,0 +1,32 @@
+mat-card, mat-card-content{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+mat-card{
+    margin: 3vw;
+}
+
+button{
+    width: 100%;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.enter{
+    color: #fff;
+    background-color: #440083e8;
+}
+
+img{
+    height: 30vh;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background-color: #440083e8;
+}

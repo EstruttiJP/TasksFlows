@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Atualizar Projeto</h2>
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="teste@gmail.com" [(ngModel)]="project.name" name="Name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea  matInput placeholder="Fulano" [(ngModel)]="project.description" name="description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Prazo final:</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="project.deadline">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Não</button>
+    <button mat-raised-button class="edit" (click)="updateProject()">
+        <mat-icon>edit</mat-icon>Alterar</button>
+</mat-dialog-actions>

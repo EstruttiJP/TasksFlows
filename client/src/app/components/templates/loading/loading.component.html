@@ -1,0 +1,9 @@
+<!-- loading.component.html -->
+<mat-card *ngIf="loading | async" class="loading-card">
+    <mat-card-content>
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <span>Carregando, por favor, aguarde...</span>
+        </div>
+    </mat-card-content>
+</mat-card>
