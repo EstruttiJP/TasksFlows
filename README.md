@@ -47,7 +47,7 @@ Um sistema de gerenciamento de tarefas que permite criar, gerenciar e acompanhar
 
 - **Spring Mail**: Envio de emails.
 
-### Frontend (Opcional)
+### Frontend 
 
 - **Angular**: Interface moderna e interativa.
 
@@ -70,6 +70,6 @@ Um sistema de gerenciamento de tarefas que permite criar, gerenciar e acompanhar
 
 ## Demonstração em Vídeo
 
-- **Login**: [home.mp4](./assets/home.mp4)
-- **Cadastro de Funcionário e Email de Boas-Vindas**: [criar-user.mp4](./assets/criar-user.mp4)
-- **Criação de Tarefa**: [criar-task.mp4](./assets/criar-task.mp4)
+- **Login**: [home.mp4](https://drive.google.com/file/d/1z_IEI3M-HebP8w_zuguPNEhjHWV4eUH5/view?usp=drive_link)
+- **Cadastro de Funcionário e Email de Boas-Vindas**: [criar-user.mp4](https://drive.google.com/file/d/17rnlEsnjHVpzzbIXJjuQ1XJiH1B6_F2C/view?usp=drive_link)
+- **Criação de Tarefa**: [criar-task.mp4](https://drive.google.com/file/d/1w0-hgGjhdq4iFARnH1Esi8TNx6UmquSN/view?usp=drive_link)
