@@ -63,6 +63,10 @@ export class ProjectComponent implements OnInit {
     this.router.navigate(["home/project/create"])
   }
 
+  viewProject(id: number){
+    this.router.navigate(["home/project/"+id])
+  }
+
   readonly dialog = inject(MatDialog);
 
   openDialogDeleteProject(name: string, id: number): void {
