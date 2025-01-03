@@ -1,0 +1,61 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Criar Tarefa
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+        <button mat-flat-button class="exit" (click)="exit()">
+            <mat-icon>reply</mat-icon>
+            voltar
+        </button>
+    </mat-card-actions>
+    <mat-card-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Projeto Teste" [formControl]="name" (blur)="updateErrorMessage()" name="Name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput placeholder="Descrição feita para um projeto teste" [formControl]="description"
+                (blur)="updateErrorMessage()" name="description"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Prazo final:</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="deadline" (blur)="updateErrorMessage()">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Selecionar Projeto</mat-label>
+            <mat-select [(value)]="selectedProject" (selectionChange)="onProjectChange($event)">
+                <mat-option *ngFor="let project of projects" [value]="project.id">
+                    {{ project.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Selecione os Membros</mat-label>
+            <mat-select [(value)]="selectedMembers" multiple (selectionChange)="onMemberSelectionChange($event)">
+                <mat-option *ngFor="let member of members" [value]="member.id">
+                    {{ member.fullName }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Exibição dos membros selecionados como chips -->
+        <mat-chip-set>
+            <mat-chip *ngFor="let memberId of selectedMembers" [removable]="true" (removed)="removeMember(memberId)">
+                {{ getMemberName(memberId) }}
+                <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip>
+        </mat-chip-set>
+
+    </mat-card-content>
+    <button mat-fab (click)="register()" style="background-color: #3e0079b6; color: #fff;">Cadastrar</button>
+</mat-card>

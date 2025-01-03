@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Deletar Projeto?</h2>
+<mat-dialog-content>
+    Você deseja deletar "{{data.name}}"?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Não</button>
+  <button mat-raised-button class="delete" (click)="deleteProject()">
+    <mat-icon>delete</mat-icon>Sim</button>
+</mat-dialog-actions>
+

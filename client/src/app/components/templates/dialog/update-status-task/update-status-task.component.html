@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Atualizar Status</h2>
+<mat-dialog-content>
+    <p>Alterar status da tarefa: {{data.name}}</p>
+    <mat-form-field appearance="outline">
+        <mat-label>Selecionar Status</mat-label>
+        <mat-select (selectionChange)="onStatusChange($event)">
+            <mat-option *ngFor="let status of taskStatuses" [value]="status.value">
+                {{ status.label }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Não</button>
+    <button mat-raised-button class="edit" (click)="updateStatusTask()">
+        <mat-icon>edit</mat-icon>Atualizar</button>
+</mat-dialog-actions>

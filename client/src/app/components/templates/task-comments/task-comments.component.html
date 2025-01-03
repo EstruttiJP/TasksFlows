@@ -1,0 +1,44 @@
+<mat-card class="card">
+    <button mat-flat-button class="exit" (click)="exit()">
+        <mat-icon>reply</mat-icon>
+        voltar
+    </button>
+    <mat-card>
+        <mat-card-header class="mat-card-header">
+            <mat-card-title class="mat-card-title">{{task?.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="tasks">
+            @if (task?.status=="pendente") {
+                <p class="pendent" (click)="openDialogUpdateStatusTask()"><mat-icon class="pendent">priority_high</mat-icon>Status: {{task?.status}}</p>
+            }@else if(task?.status=="em andamento") {
+                <p class="in_progress" (click)="openDialogUpdateStatusTask()"><mat-icon class="in_progress">hourglass_empty</mat-icon>Status: {{task?.status}}</p>
+            }@else {
+                <p class="concluido" (click)="openDialogUpdateStatusTask()"><mat-icon>check_circle</mat-icon>Status: {{task?.status}}</p>
+            }
+            <p><mat-icon>description</mat-icon>Descrição: {{task?.description}}</p>
+            <p><mat-icon>person</mat-icon>Criador: {{task?.creator}}</p>
+            <p><mat-icon>folder_open</mat-icon>Projeto: <a [routerLink]="['/home/project', task?.projectId]">{{projectName}}</a></p>
+            <p><mat-icon>group</mat-icon>Membros: {{getMemberNames()}}</p>
+            <p><mat-icon>calendar_today</mat-icon>Criado em: {{task?.launchDate | date: 'dd/MM/yyyy'}}</p>
+            <p><mat-icon>schedule</mat-icon>Prazo final: {{task?.deadline | date: 'dd/MM/yyyy'}}</p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card-content class="comentarios">
+        <ng-container *ngFor="let comentario of comments">
+            <div>
+                <mat-icon class="mat-icon comentario">account_circle</mat-icon>
+                <h3 mat-line>{{(getCommentName(comentario.userId))}}: </h3>
+                <p mat-line>{{comentario.comment}}</p>
+            </div>
+        </ng-container>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Faça um comentario" [(ngModel)]="comment.comment">
+        </mat-form-field>
+        <button mat-raised-button class="enviar" (click)="createComment()">
+            <mat-icon style="color: #fff; font-size: 1.2rem;">send</mat-icon>
+            Enviar
+        </button>
+    </mat-card-actions>
+</mat-card>

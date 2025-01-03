@@ -1,0 +1,38 @@
+<div class="findtasks">
+    <button mat-raised-button (click)="createTask()">
+        <mat-icon>add_circle_outline</mat-icon>
+        Criar um Tarefa
+    </button>
+</div>
+
+<div class="task-list">
+    <ng-container *ngFor="let task of tasks">
+        <mat-card class="task-card" (click)="navigateToTask(task.id)">
+            <div class="card-icons">
+                <button mat-icon-button (click)="openDialogUpdateTask(task.id)">
+                    <mat-icon class="edit">edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openDialogDeleteTask(task.name, task.id)">
+                    <mat-icon class="delete">delete</mat-icon>
+                </button>
+            </div>
+            <mat-card-content>
+                <h2>
+                    {{ task.name }}:
+                    <span [ngStyle]="{ color: getStatusColor(task.status) }">
+                        {{ task.status }}
+                    </span>
+                </h2>
+                <p>{{ task.description }}</p>
+                <p>Criador: {{ task.creator }}</p>
+                <p>Criado em: {{ task.launchDate | date: 'dd/MM/yyyy' }}</p>
+                <p>Prazo final: {{ task.deadline | date: 'dd/MM/yyyy' }}</p>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>
+
+<mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="totalElements"
+    [pageSize]="pageSize" [disabled]="disabled" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+    aria-label="Select page">
+</mat-paginator>

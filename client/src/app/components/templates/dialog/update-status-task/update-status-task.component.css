@@ -1,0 +1,15 @@
+.edit {
+    background-color: #440083e8;
+    color: #fff;
+    border-radius: 12px;
+}
+mat-dialog-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: visible;
+}
+mat-form-field{
+    margin: 5px 0;
+}
