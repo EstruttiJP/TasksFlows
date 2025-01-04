@@ -71,17 +71,17 @@ Um sistema de gerenciamento de tarefas que permite criar, gerenciar e acompanhar
 ## Demonstração em Vídeo
 
 ### Login 
-[![Login](https://github.com/user-attachments/assets/93dfca26-54fc-4252-9155-4c9f378b4cd9)](https://github.com/user-attachments/assets/93dfca26-54fc-4252-9155-4c9f378b4cd9) 
+[Login](https://github.com/user-attachments/assets/93dfca26-54fc-4252-9155-4c9f378b4cd9) 
 *Explorando o site e acessando funcionalidades principais.* 
 ### Comentários nas Tarefas 
-[![Comentários nas Tarefas](https://github.com/user-attachments/assets/45c06b6e-3340-4fc3-b933-0ed82412bdd2)](https://github.com/user-attachments/assets/45c06b6e-3340-4fc3-b933-0ed82412bdd2) 
+[Comentários nas Tarefas](https://github.com/user-attachments/assets/45c06b6e-3340-4fc3-b933-0ed82412bdd2) 
 *Acompanhe como adicionar e visualizar comentários em tarefas.* 
 ### Emails Automáticos 
 #### Notificação de Boas vindas
-[![Email de Notificação](https://github.com/user-attachments/assets/a644dec3-c745-46c4-bb92-a208106d779e)](https://github.com/user-attachments/assets/a644dec3-c745-46c4-bb92-a208106d779e) 
+[Email de Notificação](https://github.com/user-attachments/assets/a644dec3-c745-46c4-bb92-a208106d779e) 
 *Notificação por email de boas-vindas.* 
 #### Notificação de Atribuição de Tarefa 
-[![Email de Atualização](https://github.com/user-attachments/assets/ca83d2c2-a6cb-421c-8856-4c2d45fbbad1)](https://github.com/user-attachments/assets/ca83d2c2-a6cb-421c-8856-4c2d45fbbad1) 
+[Email de Atribuicao](https://github.com/user-attachments/assets/ca83d2c2-a6cb-421c-8856-4c2d45fbbad1) 
 *Email automático quando o status da tarefa é Atribuída.*
 
 
