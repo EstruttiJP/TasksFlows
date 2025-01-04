@@ -28,7 +28,7 @@ export class LoginComponent {
 
   updateErrorMessage() {
     if (this.email.hasError('required')) {
-      this.errorMessage = 'você deve inserir uma senha';
+      this.errorMessage = 'você deve inserir um email';
       this.acess = false
     } else if (this.email.hasError('email')) {
       this.errorMessage = 'Você deve inserir um email';

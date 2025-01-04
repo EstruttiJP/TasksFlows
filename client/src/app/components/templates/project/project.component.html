@@ -17,7 +17,7 @@
 
 <div class="project-list">
     <ng-container *ngFor="let project of projects">
-        <mat-card class="project-card">
+        <mat-card class="project-card" (click)="viewProject(project.id)">
             <div class="card-icons">
                 <button mat-icon-button (click)="openDialogUpdateProject(project.id)">
                     <mat-icon class="edit">edit</mat-icon>
