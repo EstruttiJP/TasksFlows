@@ -70,6 +70,16 @@ Um sistema de gerenciamento de tarefas que permite criar, gerenciar e acompanhar
 
 ## Demonstração em Vídeo
 
-- **Login**: [home.mp4](https://drive.google.com/file/d/1z_IEI3M-HebP8w_zuguPNEhjHWV4eUH5/view?usp=drive_link)
-- **Cadastro de Funcionário e Email de Boas-Vindas**: [criar-user.mp4](https://drive.google.com/file/d/17rnlEsnjHVpzzbIXJjuQ1XJiH1B6_F2C/view?usp=drive_link)
-- **Criação de Tarefa**: [criar-task.mp4](https://drive.google.com/file/d/1w0-hgGjhdq4iFARnH1Esi8TNx6UmquSN/view?usp=drive_link)
+- **Login**:
+https://github.com/user-attachments/assets/93dfca26-54fc-4252-9155-4c9f378b4cd9
+
+- **Comentarios nas tarefas**:
+https://github.com/user-attachments/assets/45c06b6e-3340-4fc3-b933-0ed82412bdd2
+
+- **Emails automaticos**:
+
+https://github.com/user-attachments/assets/a644dec3-c745-46c4-bb92-a208106d779e
+https://github.com/user-attachments/assets/ca83d2c2-a6cb-421c-8856-4c2d45fbbad1
+
+
+
